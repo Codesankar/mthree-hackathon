@@ -1,4 +1,4 @@
-#!/Users/yuzi/Desktop/BU/Hackathon-bu/Monday/BlandAi-hackathon/venv/bin/python3
+#!/Users/gurusankar/Desktop/python/venv/bin/python3.11
 # -*- coding: utf-8 -*-
 import re
 import sys
