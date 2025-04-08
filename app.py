@@ -1,20 +1,40 @@
 from flask import Flask, render_template, Response
 import cv2
+from deepface import DeepFace
+import time
+from datetime import datetime
 
 app = Flask(__name__)
-camera = cv2.VideoCapture(0)  # Use 0 for default webcam
+camera = cv2.VideoCapture(0)
+
+last_check = time.time()
+CHECK_INTERVAL = 5  # seconds
 
 def gen_frames():
+    global last_check
     while True:
         success, frame = camera.read()
         if not success:
             break
         else:
-            # Encode frame as JPEG
+            now = time.time()
+
+            if now - last_check >= CHECK_INTERVAL:
+                last_check = now
+                try:
+                    # Analyze emotions using DeepFace
+                    result = DeepFace.analyze(frame, actions=['emotion'], enforce_detection=False)
+                    if isinstance(result, list):
+                        result = result[0]
+                    emotion = result["dominant_emotion"]
+                    print(f"[{datetime.now().strftime('%H:%M:%S')}] Dominant Emotion: {emotion}")
+                except Exception as e:
+                    print(f"Emotion detection failed: {e}")
+
+            # Encode frame
             ret, buffer = cv2.imencode('.jpg', frame)
             frame = buffer.tobytes()
 
-            # Serve as multipart/x-mixed-replace stream
             yield (b'--frame\r\n'
                    b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
