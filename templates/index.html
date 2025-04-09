@@ -1,11 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Live Feed</title>
+    <meta charset="UTF-8">
+    <title>CARE MVP - Emotion Detection</title>
+    <script>
+        function startFeed() {
+            document.getElementById('videoContainer').innerHTML = '<img src="/video_feed" width="720" height="560">';
+        }
+    </script>
 </head>
 <body>
-  <h1>Live Webcam Feed</h1>
-  <img src="{{ url_for('video_feed') }}" width="720" height="560">
+    <h1>Live Camera Feed</h1>
+    <button onclick="startFeed()">Start Camera</button>
+    <div id="videoContainer"></div>
 </body>
 </html>
