@@ -32,3 +32,6 @@
 ## Notes
 - Ensure you have a `requirements.txt` file with all necessary dependencies listed.
 - If you encounter issues, verify that Python 3.10 is correctly installed and added to your system's PATH.
+
+
+To contribute Read the CARE pdfs.
